@@ -6,6 +6,9 @@ import 'package:clone_spotify/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/played_item_cubit.dart';
+import '../data/content.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -26,35 +29,43 @@ class _MainScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.black,
-        child: Row(children: [
-          Expanded(
-              flex: 2,
-              child: Column(
-                children: const [
-                  MainRoute(
-                    key: PageStorageKey("mainRoute"),
-                  ),
-                  Library(
-                    key: PageStorageKey("libraryView"),
-                  ),
-                ],
-              )),
-          MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (context) => ScrollCubit()),
-                BlocProvider(create: (context) => RecentlyPlayHoverCubit())
-              ],
-              child: BlocBuilder<SelectedScreenCubit, int>(
-                builder: (context, key) => Expanded(
-                    flex: 7,
-                    child: key == 0 ? const MainView() : const SearchView()),
-              ))
-        ]),
-      ),
-    );
+    return BlocProvider(
+        create: (context) => PlayedItemCubit(),
+        child: Scaffold(
+          bottomNavigationBar: BlocBuilder<PlayedItemCubit, Content?>(
+              builder: (context, state) => BottomMusicDisplay(
+                    content: state,
+                  )),
+          extendBody: true,
+          body: Container(
+            color: Colors.black,
+            child: Row(children: [
+              Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: const [
+                      MainRoute(
+                        key: PageStorageKey("mainRoute"),
+                      ),
+                      Library(
+                        key: PageStorageKey("libraryView"),
+                      ),
+                    ],
+                  )),
+              MultiBlocProvider(
+                  providers: [
+                    BlocProvider(create: (context) => ScrollCubit()),
+                    BlocProvider(create: (context) => RecentlyPlayHoverCubit())
+                  ],
+                  child: BlocBuilder<SelectedScreenCubit, int>(
+                    builder: (context, key) => Expanded(
+                        flex: 7,
+                        child:
+                            key == 0 ? const MainView() : const SearchView()),
+                  ))
+            ]),
+          ),
+        ));
   }
 }
 
@@ -63,29 +74,37 @@ class _MainScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.black,
-        child: Column(children: [
-          Expanded(
-              child: Row(
-            children: const [
-              MainRoute(
-                key: PageStorageKey("mainRoute"),
-              ),
-            ],
-          )),
-          MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (context) => ScrollCubit()),
-                BlocProvider(create: (context) => RecentlyPlayHoverCubit())
+    return BlocProvider(
+      create: (context) => PlayedItemCubit(),
+      child: Scaffold(
+        bottomNavigationBar: BlocBuilder<PlayedItemCubit, Content?>(
+            builder: (context, state) => BottomMusicDisplay(
+                  content: state,
+                )),
+        extendBody: true,
+        body: Container(
+          color: Colors.black,
+          child: Column(children: [
+            Expanded(
+                child: Row(
+              children: const [
+                MainRoute(
+                  key: PageStorageKey("mainRoute"),
+                ),
               ],
-              child: BlocBuilder<SelectedScreenCubit, int>(
-                builder: (context, key) => Expanded(
-                    flex: 7,
-                    child: key == 0 ? const MainView() : const SearchView()),
-              ))
-        ]),
+            )),
+            MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (context) => ScrollCubit()),
+                  BlocProvider(create: (context) => RecentlyPlayHoverCubit())
+                ],
+                child: BlocBuilder<SelectedScreenCubit, int>(
+                  builder: (context, key) => Expanded(
+                      flex: 7,
+                      child: key == 0 ? const MainView() : const SearchView()),
+                ))
+          ]),
+        ),
       ),
     );
   }

@@ -55,28 +55,30 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 onTap: () => print("Next"),
               ),
               if (BlocProvider.of<SelectedScreenCubit>(context).state == 1)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Form(
-                      child: TextFormField(
-                    controller: widget.controller,
-                    style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                        overflow: TextOverflow.fade),
-                    decoration: InputDecoration(
-                        prefixIconConstraints: const BoxConstraints(
-                            minHeight: 35.0, minWidth: 35.0),
-                        filled: true,
-                        fillColor: const Color.fromARGB(255, 117, 115, 115)
-                            .withOpacity(0.5),
-                        prefixIcon: const Icon(Icons.search),
-                        prefixIconColor: Colors.black,
-                        constraints: const BoxConstraints(
-                            minHeight: 40.0, maxWidth: 400.0, maxHeight: 40.0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0))),
-                  )),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Form(
+                        child: TextFormField(
+                      controller: widget.controller,
+                      style: const TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                          overflow: TextOverflow.fade),
+                      decoration: InputDecoration(
+                          prefixIconConstraints: const BoxConstraints(
+                              minHeight: 35.0, minWidth: 35.0),
+                          filled: true,
+                          fillColor: const Color.fromARGB(255, 117, 115, 115)
+                              .withOpacity(0.5),
+                          prefixIcon: const Icon(Icons.search),
+                          prefixIconColor: Colors.black,
+                          constraints: const BoxConstraints(
+                              minHeight: 40.0, maxHeight: 40.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0))),
+                    )),
+                  ),
                 )
             ],
           ),

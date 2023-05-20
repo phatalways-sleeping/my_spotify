@@ -2,6 +2,8 @@ import 'package:clone_spotify/assets.dart';
 import 'package:clone_spotify/data/content.dart';
 import 'package:flutter/material.dart';
 
+import 'music_item.dart';
+
 class Library extends StatelessWidget {
   const Library({super.key});
 
@@ -65,7 +67,7 @@ class Library extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ListView.builder(
                       itemCount: forYouData.length,
-                      itemBuilder: (context, index) => _MusicItem(
+                      itemBuilder: (context, index) => MusicItem(
                         key: PageStorageKey("musicItem$index"),
                         content: forYouData[index],
                       ),
@@ -77,73 +79,7 @@ class Library extends StatelessWidget {
   }
 }
 
-class _MusicItem extends StatefulWidget {
-  final Content content;
-  const _MusicItem({super.key, required this.content});
 
-  @override
-  State<_MusicItem> createState() => _MusicItemState();
-}
-
-class _MusicItemState extends State<_MusicItem> {
-  bool isHovered = false;
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onHover: (event) => setState(() {
-        isHovered = true;
-      }),
-      onExit: (event) => setState(() {
-        isHovered = false;
-      }),
-      child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 1.0),
-          height: 70.0,
-          margin: const EdgeInsets.symmetric(vertical: 10.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: isHovered
-                  ? const Color.fromARGB(255, 32, 32, 32)
-                  : const Color.fromARGB(255, 17, 17, 17)),
-          child: Row(
-            children: [
-              if (widget.content.role == Role.PLAYLIST)
-                Image.asset(
-                  widget.content.image,
-                  height: 70.0,
-                  fit: BoxFit.cover,
-                ),
-              if (widget.content.role == Role.ARTIST)
-                CircleAvatar(
-                  backgroundImage: AssetImage(widget.content.image),
-                  radius: 35.0,
-                ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(widget.content.title,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 18.0)),
-                      Text(widget.content.subTitle!,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 14.0))
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )),
-    );
-  }
-}
 
 class _FilteredOption extends StatelessWidget {
   final String content;

@@ -8,3 +8,5 @@ export 'content_list_item.dart';
 export 'play_button.dart';
 export 'track_item.dart';
 export 'search_view.dart';
+export 'bottom_music_display.dart';
+import 'music_item.dart';

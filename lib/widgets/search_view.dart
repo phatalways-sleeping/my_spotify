@@ -82,7 +82,7 @@ class _SearchViewDesktop extends StatelessWidget {
                       builder: (context, scrollOffset) => CustomAppBar(
                         defaultColor: Colors.black,
                         controller: textController,
-                        key: const PageStorageKey("customeAppBar"),
+                        key: const PageStorageKey("customeAppBar_searchView"),
                         scrollOffset: scrollOffset,
                         mainColor: index == -1
                             ? null
@@ -90,7 +90,7 @@ class _SearchViewDesktop extends StatelessWidget {
                       ),
                     )),
                 body: CustomScrollView(
-                  key: const PageStorageKey("mainScrollView"),
+                  key: const PageStorageKey("mainScrollV_searchViewiew_searchView"),
                   controller: controller,
                   slivers: [
                     SliverToBoxAdapter(
@@ -148,7 +148,7 @@ class _SearchViewDesktop extends StatelessWidget {
                           delegate: SliverChildBuilderDelegate(
                               childCount: recentlyPlayed.length,
                               (context, index) => TrackItem(
-                                    key: PageStorageKey("track$index"),
+                                    key: PageStorageKey("track${index}_searchView_searchView"),
                                     image: recentlyPlayed[index].image,
                                     title: recentlyPlayed[index].title,
                                     mainColor: recentlyPlayed[index].mainColor!,
@@ -206,7 +206,7 @@ class _SearchViewMobile extends StatelessWidget {
                       builder: (context, scrollOffset) => CustomAppBar(
                         defaultColor: Colors.black,
                         controller: textController,
-                        key: const PageStorageKey("customeAppBar"),
+                        key: const PageStorageKey("customeAppBar_searchView"),
                         scrollOffset: scrollOffset,
                         mainColor: index == -1
                             ? null
@@ -214,7 +214,7 @@ class _SearchViewMobile extends StatelessWidget {
                       ),
                     )),
                 body: CustomScrollView(
-                  key: const PageStorageKey("mainScrollView"),
+                  key: const PageStorageKey("mainScrollView_searchView"),
                   controller: controller,
                   slivers: [
                     SliverToBoxAdapter(
